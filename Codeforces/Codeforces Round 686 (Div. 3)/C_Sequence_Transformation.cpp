@@ -39,6 +39,7 @@ int main(){
     cout.tie();
     int t;
     cin >> t;
-    while(t--)
+    while(t--){
         solve();
+    }
 }

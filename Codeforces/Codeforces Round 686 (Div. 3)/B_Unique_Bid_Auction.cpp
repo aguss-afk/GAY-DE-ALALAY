@@ -36,9 +36,8 @@ void solve(){
             }
         }
     }
-    if(ans == -1){
-        cout << -1 << endl;
-    } else cout << pos + 1 << endl;
+    if(ans == -1) cout << -1 << endl;
+    else cout << pos + 1 << endl;
 }
 int main(){
     ios::sync_with_stdio(0);

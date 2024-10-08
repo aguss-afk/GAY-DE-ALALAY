@@ -24,7 +24,8 @@ void prime(){
     for(int i = 2; i <= N; i++){
         if(ip[i]) primes.push_back(i);
     }
-}
+} 
+
 void solve(){
     ll n;
     pair<ll, ll> maxi;
