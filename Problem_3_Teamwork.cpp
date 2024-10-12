@@ -11,24 +11,12 @@
 #define INF LLONG_MAX
 using namespace std;
 typedef long long ll;
-/*
-GAY EL QUE LO LEA
-bro? 🤨
-*/
-void solve(){
-    int n;
-    cin >> n;
-    for(int i = 0; i < n - 1; i++)
-        cout << i + 2 << sp;
-    cout << 1;
-    cout << endl;
+void solve(){   
+    int n, k;
+    cin >> n >> k;
+    vector<int> arr(n);
+    f1(i, arr) cin >> i;
 }
 int main(){
-    ios::sync_with_stdio(0);
-    cin.tie();
-    cout.tie();
-    int t;
-    cin >> t;
-    while(t--)
-        solve();
+    solve();
 }

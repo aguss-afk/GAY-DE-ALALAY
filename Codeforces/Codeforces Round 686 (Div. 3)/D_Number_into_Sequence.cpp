@@ -11,6 +11,10 @@
 #define INF LLONG_MAX
 using namespace std;
 typedef long long ll;
+/*
+GAY EL QUE LO LEA
+bro? 🤨
+*/
 ll N = 1e5;
 vector<ll> primes;
 vector<bool> ip(N + 1, true);
