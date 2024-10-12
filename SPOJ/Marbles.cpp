@@ -11,6 +11,9 @@
 #define INF LLONG_MAX
 using namespace std;
 typedef long long ll;
+/*
+    Te salvaste pero sigues siendo medio gay mejor anda ver al gay de palermo en twitter
+*/
 void solve(){
     ll n, m;
     cin >> n >> m;
