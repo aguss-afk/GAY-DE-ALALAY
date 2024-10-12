@@ -9,6 +9,9 @@
 #define raya() cout << endl << "====================================" << endl
 #define dbg(x) cerr << #x << ": " << x << endl;
 #define INF LLONG_MAX
+/*
+    Te salvaste pero sigues siendo medio gay mejor anda ver al gay de palermo en twitter
+*/
 using namespace std;
 typedef long long ll;
 void solve(){   
