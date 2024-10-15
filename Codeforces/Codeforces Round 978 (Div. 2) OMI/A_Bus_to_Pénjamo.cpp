@@ -13,8 +13,25 @@
 using namespace std;
 typedef long long ll;
 void solve(){
-    int n, m;
-    cin >> n >> m; 
+    ll n, m;
+    cin >> n >> m;
+    ll ans = 0, mo = 0;
+    f2(i, n, 0){
+        ll aux;
+        cin >> aux;
+        ans += aux / 2;
+        mo += aux % 2;
+    }
+    if(m > ans){
+        m -= ans;
+        ans *= 2;
+        if(m >= mo)
+            ans += mo;
+        else ans += (m * 2) - mo;
+        cout << ans << endl;
+        return;
+    }
+    cout << ans * 2 << endl; 
 }
 int main(){
     ios::sync_with_stdio(0);
