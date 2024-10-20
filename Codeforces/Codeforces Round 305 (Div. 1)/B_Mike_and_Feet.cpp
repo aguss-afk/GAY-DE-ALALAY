@@ -12,26 +12,54 @@
 #define INF LLONG_MAX
 using namespace std;
 typedef long long ll;
+vector<ll> comp, sizec, minc, arr;
+ll n;
+ll find(ll a){
+    return comp[a] = (a == comp[a] ? a : find(comp[a]));
+}
+void unioncomp(ll A, ll B){
+    ll a = find(A);
+    ll b = find(B);
+    if(sizec[a] < sizec[b]) swap(a, b);
+    comp[b] = a;
+    minc[a] = min(minc[b], minc[a]);
+    sizec[a] += sizec[b];
+}
+void createcomp(ll a){
+    comp[a] = a;
+    sizec[a] = 1;
+    minc[a] = arr[a];
+    if(a > 0 and comp[a - 1] != -1) unioncomp(a, comp[a - 1]);
+    if(a < n - 1 and comp[a + 1] != -1) unioncomp(a, comp[a + 1]);
+}
 void solve(){
-    int n, ma = 0;
-    cin >> n;
-    vector<vector<int>> arr(n);
-    f2(i, n, 0){
-        int aux;
-        cin >> aux;
-        arr[0].push_back(aux);
-        ma = max(aux, ma);
-    }
-    cout << ma << sp;
-    for(int i = 0; i < n - 1; i++){
-        ma = 0;
-        for(int j = 0; j < arr[i].size() - 1; j++){
-           int x = min(arr[i][j], arr[i][j + 1]);
-           arr[i + 1].push_back(x);
-           ma = max(ma, x);
+    cin >> n; 
+    arr.assign(n, 0);
+    comp.assign(n, -1);
+    sizec.assign(n, 0);
+    minc.assign(n, 0);
+    f1(i, arr) cin >> i;
+    vector<pair<ll, ll>> cop;
+    f2(i, n, 0)
+        cop.push_back({arr[i], i});
+    sort(cop.begin(), cop.end());
+    ll curr = cop.back().second;
+    ll q = 1;
+    createcomp(curr);
+    ll io = n;
+    vector<ll> ans;
+    while(io--){
+        while(q <= sizec[find(curr)]){
+            ans.push_back(minc[find(curr)]);
+            q++;
         }
-        cout << ma << sp;
+        cop.pop_back();
+        if(cop.size()){
+            createcomp(cop.back().second);
+            curr = cop.back().second;
+        }
     }
+    f1(i, ans) cout << i << sp;
 }
 int main(){
     ios::sync_with_stdio(0);
