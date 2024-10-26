@@ -24,46 +24,53 @@ void solve(){
     cin >> n >> m;
     string x;
     cin >> x;
-    vector<char> t1, t2;
-    f2(i, n, 0) t1.push_back(x[i]);
-    f2(i, n + m, n) t2.push_back(x[i]);
-    reverse(all(t1));
-    int v1 = 0, v2 = 0;
-    set<int> ans;
-    while(v1 < n and v2 < m){
-        if(x[v1] == x[v2]) v2++;
-        else if(x[v1] == 'P'){
-            if(x[v2] == 'R') v2++;
-            else v1++;
-        } else if(x[v1] == 'R'){
-            if(x[v2] == 'S') v2++;
-            else v1++;
+    string r1, l1, r2, l2;
+    r1 = l1 = r2 = l2 = "";
+    unordered_set<int> a;
+    f2(i, n, 0)
+        r1 += x[i];
+    f2(i, n + m, n)
+        l1 += x[i];
+    reverse(all(l1));
+    r2 = r1;
+    l2 = l1;
+    while(1){
+        if(!r1.size() or !l1.size()) break;
+        if(r1.back() == l1.back()) l1.pop_back();
+        else if(r1.back() == 'P'){
+            if(l1.back() == 'R') l1.pop_back();
+            else r1.pop_back();
+        } else if(r1.back() == 'R'){
+            if(l1.back() == 'S') l1.pop_back();
+            else r1.pop_back();
         } else {
-            if(x[v2] == 'P') v2++;
-            else v1++;
+            if(l1.back() == 'P') l1.pop_back();
+            else r1.pop_back();
         }
- 
     }
-    for(v1; v1 < n; v1++) ans.insert(n - v1 - 1);
-    for(v2; v2 < m; v2++) ans.insert(v2 + n + 1);
-    v1 = 0, v2 = n;
-    while(v1 < n and v2 < m){
-        if(x[v1] == x[v2]) v1++;
-        else if(x[v1] == 'P'){
-            if(x[v2] == 'R') v2++;
-            else v1++;
-        } else if(x[v1] == 'R'){
-            if(x[v2] == 'S') v2++;
-            else v1++;
+    f2(i, r1.size(), 0)
+        a.insert(i);
+    f2(i, l1.size(), 0)
+        a.insert(n + m - i - 1);
+    while(1){
+        if(!r2.size() or !l2.size()) break;
+        if(r2.back() == l2.back()) r2.pop_back();
+        else if(r2.back() == 'P'){
+            if(l2.back() == 'R') l2.pop_back();
+            else r2.pop_back();
+        } else if(r2.back() == 'R'){
+            if(l2.back() == 'S') l2.pop_back();
+            else r2.pop_back();
         } else {
-            if(x[v2] == 'P') v2++;
-            else v1++;
+            if(l2.back() == 'P') l2.pop_back();
+            else r2.pop_back();
         }
- 
     }
-    for(v1; v1 < n; v1++) ans.insert(n - v1 - 1);
-    for(v2; v2 < m; v2++) ans.insert(v2 + n + 1);
-    cout << ans.size();
+    f2(i, r2.size(), 0)
+        a.insert(i);
+    f2(i, l2.size(), 0)
+        a.insert(n + m - i - 1);
+    cout << a.size();
 }
 int main(){
     ios::sync_with_stdio(0);
