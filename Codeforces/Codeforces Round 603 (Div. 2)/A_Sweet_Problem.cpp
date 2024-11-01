@@ -18,30 +18,38 @@
 
 using namespace std;
 using ll = long long;
-ll binpow(ll a, ll b){
-    ll res = 1;
-    while(b > 0){
-        if(b & 1){
-            res *= a;
-        }
-        a *= a;
-        b >>= 1;
-    }
-    return res;
-}
+
 void solve(){
-    ll n;
-    cin >> n; 
-    ll x = 1, ans;
-    while(binpow(10, x) <= n){
-        ans += x * 10;
-        x++;
+    ll r, g, b, ans = 0;
+    cin >> r >> g >> b;
+    ll ma = max(r, max(g, b));
+    if(r != ma){
+        if(g == ma) swap(g, r);
+        else swap(b, r);
     }
+    ll mi = min(g, b);
+    if(b != mi) swap(b, g);
+    // r max b min
+    ll p1 = r, p2 = g;
+    if(b + g > r){
+        ll x = r - g;
+        g += x;
+        b -= x;
+        r += b / 2;
+        g += b / 2;
+    } else {
+        ans += b;
+        r -= b;
+    }
+    ans += min(r, g);
     cout << ans << endl;
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    solve();
+    int t;
+    cin >> t;
+    while(t--)
+        solve();
 }
