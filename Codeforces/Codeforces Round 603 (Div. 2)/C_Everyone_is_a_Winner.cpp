@@ -20,26 +20,21 @@ using namespace std;
 using ll = long long;
 vector<bool> ip(100000, 1);
 vector<int> p;
-void primes(){
-    ip[0] = ip[1] = 0;
-    for(ll i = 1; i <= 1e5; i++){
-        if(ip[i] and i * i <= 1e5){
-            for(ll j = i * i; j <= 1e5; j += i) ip[j] = 0;
-        }
-    }
-    f2(i, 1e5, 0){
-        if(ip[i]) p.push_back(i);
-    }
-}
 void solve(){
     ll n;
     cin >> n; 
-    set<ll> ans;
-    ans.insert(0);
-    for(int i = 0; i <= (n + 1) / 2; i++){
-        ans.insert(n / p[i]);
+    vector<ll> arr;
+    int s = sqrt(n);
+    for(int i = 0; i <= s; i++){
+        arr.push_back(i);
     }
-    ans.insert(n);
+    for(int i = 1; i <= s; i++){
+        arr.push_back(n / i);
+    }
+    set<ll> ans;
+    f1(i, arr){
+        ans.insert(i);
+    }
     cout << ans.size() << endl;
     f1(i, ans){
         cout << i << sp;
@@ -50,7 +45,6 @@ int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    primes();
     int t;
     cin >> t;
     while(t--)

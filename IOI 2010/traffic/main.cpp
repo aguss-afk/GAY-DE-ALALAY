@@ -70,3 +70,19 @@ int LocateCentre(int n, int p[], int s[], int d[]){
     }
     return ans;
 }
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    //freopen("grader.in.4", "r", stdin);
+    int n;
+    cin >> n;
+    int p[n], s[n - 1], d[n - 1];
+    f2(i, n, 0){
+        cin >> p[i];
+    }
+    f2(i, n - 1, 0){
+        cin >> s[i] >> d[i];
+    }
+    cout << LocateCentre(n, p, s, d);
+}

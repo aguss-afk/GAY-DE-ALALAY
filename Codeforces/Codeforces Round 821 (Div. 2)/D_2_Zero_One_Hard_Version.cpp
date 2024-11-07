@@ -60,18 +60,20 @@ void solve(){
             }
         }
     } else {
-        for(int i = 0; i < diff.size() - 1; i++){
-            if(!diff[i].first or !diff[i + 1].first){
-                continue;
-            }
-            if((diff[i + 1].second - diff[i].second) * x < y){
-                ans += (diff[i + 1].second - diff[i].second) * x;
+        vector<ll> dp(diff.size());
+        dp[0] = 0;
+        dp[1] = min((diff[1].second - diff[0].second) * x, y);
+        f2(i, diff.size(), 2){
+            dp[i] = dp[i - 2] + min(y, (diff[i].second - diff[i - 1].second) * x);
+            if(i % 2){
+                dp[i] = min(dp[i - 1] + y, dp[i]);
             } else {
-                ans += y;
+                dp[i] = min(dp[i - 1], dp[i]);
             }
-            diff[i + 1].first = 0;
-            diff[i].first = 0;
         }
+        //f1(i, dp) cout << i << sp;
+        //cout << endl; 
+        ans = dp[diff.size() - 1]; 
     }
     cout << ans << endl;
 }
