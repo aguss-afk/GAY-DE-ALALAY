@@ -58,7 +58,6 @@ int query(int l, int r) {
 void solve() {
     int q, n;
     cin >> n >> q;
-    MAXN = 2 * n - 1;
     arr.assign(n, vector<int>());
     first.assign(n, -1);
     f2(i, n - 1, 0) {
