@@ -18,55 +18,69 @@
 
 using namespace std;
 using ll = long long;
-struct state {
-    int x, y;
-    string ans;
-};
 
 void solve(){
-    int n, m, x, y;
+    int n, m;
     cin >> n >> m;
-    vector<vector<char>> arr(n, vector<char>(m));
+    vector<vector<char>> arr(n, vector<char>(m)), ans(n, vector<char>(m, 'n'));
+    vector<vector<bool>> vis(n, vector<bool>(m, 0));
+    f1(i, arr){
+        f1(j, i){
+            cin >> j;
+        }
+    }    
+    queue<pair<pair<int, int>, char>> q;
+    int x, y, px, py;
     f2(i, n, 0){
         f2(j, m, 0){
-            cin >> arr[i][j];
             if(arr[i][j] == 'A'){
                 x = i;
                 y = j;
             }
+            if(arr[i][j] == 'B'){
+                px = i;
+                py = j;
+            }
         }
     }
-    queue<state> q;
-    vector<vector<bool>> vis(n, vector<bool>(m, 0));
-    q.push({x, y, endl});
-    vis[x][y] = 1;
-    vector<pair<int, int>> dir {{-1, 0}, {1, 0}, {-1, 0}, {1, 0}};
-    string dir2 = "UDLR";
+    q.push({{x, y}, '\''});
     while(!q.empty()){
-        state a = q.front();
+        int posx = q.front().first.first;
+        int posy = q.front().first.second;
+        char dir = q.front().second;
         q.pop();
-        int i = a.x, j = a.y;
-        if(arr[i][j] != 'A' and arr[i][j] != '.') continue;
-        cout << a.x << sp << a.y << a.ans << endl;
-        if(arr[i][j] == 'B'){
-            cout << "YES" << endl;
-            cout << a.ans.size() - 1;
-            f1(p, a.ans) cout << p;
-            return;
-        }
-        f2(i, 4, 0){
-            int di = dir[i].first, dj = dir[i].second;
-            char dirp = dir2[i];
-            if(i + di >= n or i + di < 0 or j + dj >= m or j + dj < 0) continue;
-            vis[i][j] = 1;
-            state b;
-            b.x = i;
-            b.y = j;
-            b.ans = a.ans + dir2[i];
-            q.push(b);
+        if(posx < 0 or posx == n) continue;
+        if(posy < 0 or posy == m) continue;
+        if(arr[posx][posy] == '#') continue;
+        if(vis[posx][posy]) continue;
+        vis[posx][posy] = 1;
+        ans[posx][posy] = dir;
+        q.push({{posx + 1, posy}, 'D'});
+        q.push({{posx - 1, posy}, 'U'});
+        q.push({{posx, posy + 1}, 'R'});
+        q.push({{posx, posy - 1}, 'L'});
+    }
+    if(ans[px][py] == 'n'){
+        cout << "NO";
+        return;
+    }
+    string lans = "";
+    while(py != y or px != x){
+        lans += ans[px][py];
+        if(ans[px][py] == 'D'){
+            px--;
+        } else if(ans[px][py] == 'U'){
+            px++;
+        } else if(ans[px][py] == 'R'){
+            py--;
+        } else if(ans[px][py] == 'L'){
+            py++;
         }
     }
-    cout << "NO";
+    cout << "YES" << endl;
+    cout << lans.size() << endl;
+    reverse(all(lans));
+    cout << lans;
 }
 int main(){
     ios::sync_with_stdio(0);
